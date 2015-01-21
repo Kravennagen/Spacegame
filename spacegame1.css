@@ -34,14 +34,48 @@ background-size: 100% 100%;
 }
 
 #mine1 {
-	margin: 100px;
-	margin-left: -7px;
+margin: 10px;
+margin-left: -7px;
 height:150px;
 }
 
 #mine2 {
-	margin: 0px;
-	margin-left: -7px;
+margin-bottom: -100px;
+margin-left: -7px;
 height:250px;
 width: 100px;
+}
+
+#mine3 {
+margin-bottom: -100px;
+margin-left: -7px;
+height:250px;
+width: 100px;
+}
+
+#text1 {
+color: white;
+margin-top: -560px;
+margin-left:200px;
+min-height:123px;
+margin-right:1500px;
+background-color:#000000;	
+}
+
+#text2 {
+color: white;
+margin-top: 37px;
+margin-left:200px;
+min-height:114px;
+margin-right:1500px;
+background-color:#000000;	
+}
+
+#text3 {
+color: white;
+margin-top: 37px;
+margin-left:200px;
+min-height:112px;
+margin-right:1500px;
+background-color:#000000;	
 }
