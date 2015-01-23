@@ -210,17 +210,15 @@ function del_drone() {
 
 function atack() {
     var target = $('#target').val();
-	    $.ajax({
-		url: 'http://163.5.245.219:3000/api/1/droids/atack/:' + target,
-		type: 'PUT',
-		xhrFields: {withCredentials: true},
-		username: "diagne_s@etna-alternance.net",
-		password: "4msRPSVZ",
-		'Content-Type': "application/json",
-		error:function(data) {alert("L'attaque a echouer l'ID n'existe pas ou bien vous n'avez pas assez de drone");},
-		success:function(data) {alert("Votre attaque est lancée"); get_info();}});   
-	} 
-    }
+    $.ajax({
+	url: 'http://163.5.245.219:3000/api/1/droids/atack/:' + target,
+	type: 'PUT',
+	xhrFields: {withCredentials: true},
+	username: "diagne_s@etna-alternance.net",
+	password: "4msRPSVZ",
+	'Content-Type': "application/json",
+	error:function(data) {alert("L'attaque a echouer l'ID n'existe pas ou bien vous n'avez pas assez de drone");},
+	success:function(data) {alert("Votre attaque est lancée"); get_info();}});   
 }
 
 function who_atack() {
@@ -233,7 +231,7 @@ function who_atack() {
 	password: "4msRPSVZ",
 	'Content-Type': "application/json",
 	error:function(data) {},
-	success:function(data) {});    
+	success:function(data) {}});    
 }
 
 function create_co(){
