@@ -208,12 +208,6 @@ function del_drone() {
     $(this).parent().remove();
 }
 
-function dro_at() {
-    var dro = new array();
-    var input = $('#allform').find("input");
-    for (i = 0; input[i]; i = i + 2) {
-}
-
 function atack() {
     var target = $('#target').val();
 	    $.ajax({
