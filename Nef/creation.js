@@ -291,9 +291,9 @@ function create_co(){
 					.append("Actuellement vous possedez:"))
 				.append($('<p></p>')
 					.attr("id", "nombre")
-					.append("droide")))
+					.append("droide"))
 				.append($('<p></p>')
-					.attr("id", "nextusin"))))
+					.attr("id", "nextusin")))))
 	.append($('<div></div>')
 		.attr("id","planete")
 		.css({
