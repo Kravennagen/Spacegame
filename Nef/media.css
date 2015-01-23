@@ -144,6 +144,7 @@ div #cristal {
     border-radius:16px;
     background-image: url(img/crystal-cave-615.jpg);
     background-repeat: no-repeat;
+    margin: auto;
 }
 
 #usine #droidelevel {
