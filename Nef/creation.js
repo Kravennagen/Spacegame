@@ -217,8 +217,8 @@ function atack() {
 	username: "diagne_s@etna-alternance.net",
 	password: "4msRPSVZ",
 	'Content-Type': "application/json",
-	error:function(data) {alert("L'attaque a echouer l'ID n'existe pas ou bien vous n'avez pas assez de drone");},
-	success:function(data) {alert("Votre attaque est lancée"); get_info();}});   
+	error:function(data) {},
+	success:function(data) {get_info();}});   
 }
 
 function who_atack() {
