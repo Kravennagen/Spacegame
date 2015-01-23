@@ -143,6 +143,7 @@ div #cristal {
     height: 45%;
     border-radius:16px;
     background-image: url(img/crystal-cave-615.jpg);
+    background-repeat: no-repeat;
 }
 
 #usine #droidelevel {
