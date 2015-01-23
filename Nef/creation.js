@@ -9,6 +9,7 @@ function connect() {
 	url: 'http://163.5.245.219:3000/api/1/players/login',
 	type: 'POST',
 	xhrFields: {withCredentials: true},
+	'Content-Type': "application/json",
 	username: "diagne_s@etna-alternance.net",
 	password: "4msRPSVZ",
 	data: {"username": "diagne_s@etna-alternance.net", "password": "4msRPSVZ"},
@@ -40,7 +41,13 @@ function get_info() {
 	error:function(data) {alert("Recuperation impossible");},
 	success:function(data) {
 	    $('#argent #level').empty();
+	    $('#produarg').empty();
+	    $('#nbarg').empty();
+	    $('#nextarg').empty();
 	    $('#argent #level').append("Niveau   :" + data.level);
+	    $('#produarg').append(data.production + "  argent/min");
+	    $('#nbarg').append(data.amount + "  argent");
+	    $('#nextarg').append("Next Level  :" + data.costNext.metal + " metal  " + data.costNext.metal + " argent");
 	}});
     $.ajax({
 	url: 'http://163.5.245.219:3000/api/1/crystalmines',
@@ -52,7 +59,13 @@ function get_info() {
 	error:function(data) {alert("Recuperation impossible");},
 	success:function(data) {
 	    $('#cristal #level').empty();
+	    $('#producrist').empty();
+	    $('#nbcrist').empty();
+	    $('#nextcrist').empty();
 	    $('#cristal #level').append("Niveau   :" + data.level);
+	    $('#producrist').append(data.production + "  cristaux/min");
+	    $('#nbcrist').append(data.amount + "  cristaux");
+	    $('#nextcrist').append("Next Level  :" + data.costNext.metal + " metal  " + data.costNext.metal + " argent");
 	}});
     $.ajax({
 	url: 'http://163.5.245.219:3000/api/1/factorys',
@@ -64,8 +77,13 @@ function get_info() {
 	error:function(data) {alert("Recuperation impossible");},
 	success:function(data) {
 	    $('#droide #level').empty();
-	    $('#droide #level').append("Niveau   :" + data.level)
-;
+	    $('#usine #droidelevel').empty();
+	    $('#nextusin').empty();
+	    $('#nextusin').append("Next Level  :" + data.costNext.metal + " metal  " + data.costNext.metal + " argent");
+	    $('#droide #level').append("Niveau   :" + data.level);
+	    for (i = 1; i <= data.level; i++) {
+		$('#usine #droidelevel').append($('<option></option>').append(" " + i));
+	    }
 	}});
     $.ajax({
 	url: 'http://163.5.245.219:3000/api/1/droids',
@@ -77,10 +95,8 @@ function get_info() {
 	error:function(data) {alert("Recuperation impossible");},
 	success:function(data) {
 	    troop = data.troops;
-	    $('#usine #droidelevel').empty();
 	    $('#droide #nombre').empty();
 	    for (var key in troop){
-		$('#usine #droidelevel').append($('<option></option>').append(" " + key))
 		$('#droide #nombre').append(" Level " + key + " : " + troop[key]);
 	    }
 	}});
@@ -108,7 +124,7 @@ function update_crystal() {
 	username: "diagne_s@etna-alternance.net",
 	password: "4msRPSVZ",
 	'Content-Type': "application/json",
-	error:function(data) {alert("Ooops pas assez de composant");},
+	error:function(data) {alert("Une amelioration est en cours ou bien il vous manque des composant");},
 	success:function(data) {alert("Votre Mine de crysal a  monte d'un niveau"); get_info();}});
 }
 
@@ -120,7 +136,7 @@ function update_argent() {
 	username: "diagne_s@etna-alternance.net",
 	password: "4msRPSVZ",
 	'Content-Type': "application/json",
-	error:function(data) {alert("Ooops pas assez de composant");},
+	error:function(data) {alert("Une amelioration est en cours ou bien il vous manque des composant");},
 	success:function(data) {alert("Votre Mine d'argent a  monte d'un niveau"); get_info();}});
 }
 
@@ -132,7 +148,7 @@ function update_factory() {
 	username: "diagne_s@etna-alternance.net",
 	password: "4msRPSVZ",
 	'Content-Type': "application/json",
-	error:function(data) {alert("Ooops pas assez de composant");},
+	error:function(data) {alert("Une amelioration est en cours ou bien il vous manque des composant");},
 	success:function(data) {alert("Votre Usine a  monte d'un niveau"); get_info();}});
 }
 
@@ -218,13 +234,13 @@ function create_co(){
 				.append($('<p></p>')
 					.attr("id", "level"))
 				.append($('<p></p>')
-					.append("")
-					.append("argent/min"))
+					.attr("id", "produarg"))
 				.append($('<p></p>')
 					.append("Actuellement vous possedez:"))
 				.append($('<p></p>')
-					.append("")
-					.append("argent"))))
+					.attr("id", "nbarg"))
+				.append($('<p></p>')
+					.attr("id", "nextarg"))))
 		.append($('<button></button>')
 			.append("Ameliorer").click(update_crystal))
 		.append($('<div></div>')
@@ -236,13 +252,13 @@ function create_co(){
 				.append($('<p></p>')
 					.attr("id", "level"))
 				.append($('<p></p>')
-					.append("")
-					.append("crital/min"))
+					.attr("id", "producrist"))
 				.append($('<p></p>')
 					.append("Actuellement vous possedez:"))
 				.append($('<p></p>')
-					.append("")
-					.append("cristal")))))
+					.attr("id", "nbcrist"))
+				.append($('<p></p>')
+					.attr("id", "nextcrist")))))
 	.append($('<div></div>')
 		.attr("id","usine")
 		.css({
@@ -273,14 +289,10 @@ function create_co(){
 				.append($('<p></p>')
 					.append("Actuellement vous possedez:"))
 				.append($('<p></p>')
+					.attr("id", "nextusin"))
+				.append($('<p></p>')
 					.attr("id", "nombre")
-					.append("droide"))))
-			.append($('<div></div>')
-				.attr("id", "compocristal")
-				.append($('<img></img>').attr("src","./img/cristal.jpg")))
-			.append($('<div></div>')
-				.attr("id", "composilver")
-				.append($('<img></img>').attr("src","./img/silver.jpg"))))
+					.append("droide")))))
 	.append($('<div></div>')
 		.attr("id","planete")
 		.css({
@@ -303,6 +315,7 @@ function create_co(){
     $('#droide').mouseover(function(){$('#droide #info').show();});
     $('#droide').mouseout(function(){$('#droide #info').hide();});
 }
+
 
 log_screen();
 
