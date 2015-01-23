@@ -99,6 +99,7 @@ function get_info() {
 	    for (var key in troop){
 		$('#droide #nombre').append(" Level " + key + " : " + troop[key]);
 	    }
+	    $('#droide #nombre').append("  droide");
 	}});
 }
 
@@ -289,10 +290,10 @@ function create_co(){
 				.append($('<p></p>')
 					.append("Actuellement vous possedez:"))
 				.append($('<p></p>')
-					.attr("id", "nextusin"))
-				.append($('<p></p>')
 					.attr("id", "nombre")
-					.append("droide")))))
+					.append("droide")))
+				.append($('<p></p>')
+					.attr("id", "nextusin"))))
 	.append($('<div></div>')
 		.attr("id","planete")
 		.css({
