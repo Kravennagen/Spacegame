@@ -192,6 +192,35 @@ function log_screen() {
 			 })));
 }
 
+function show_atack() {
+    $('#atack').show();
+}
+
+function add_drone() {
+    var clone = $('#form').clone();
+    $(clone.find("button")[0]).click(add_drone);
+    $(clone.find("button")[1]).click(del_drone);
+    $('#allform').append(clone);
+}
+
+function del_drone() {
+    console.log(this);
+    $(this).parent().remove();
+}
+
+function atack() {
+    var id = target;
+    $.ajax({
+	url: 'http://163.5.245.219:3000/api/1/droids/atack/:' + target,
+	type: 'PUT',
+	xhrFields: {withCredentials: true},
+	username: "diagne_s@etna-alternance.net",
+	password: "4msRPSVZ",
+	'Content-Type': "application/json",
+	error:function(data) {alert("L'attaque a echouer l'ID n'existe pas ou bien vous n'avez pas assez de drone");},
+	success:function(data) {alert("Votre attaque est lancée"); get_info();}});    
+}
+
 function create_co(){
     var $body = $('body');
     $body.empty();
@@ -302,10 +331,24 @@ function create_co(){
 		    display: 'block',
 		    float: 'left'
 		})
-		.append($('<button></button>')
+		.append($('<button></button>').click(show_atack)
 			.append("Attaquer"))
-		.append($('<div></div>')
-			.attr("id","or")));
+		.append($('<div></div>').hide()
+			.attr("id","atack")
+			.append($('<div></div>')
+                                .attr("id","allform")
+				.append($('<div></div>')
+					.attr("id","form")
+					.append($('<button></button>').click(add_drone).append("+"))
+					.append($('<button></button>').append("-"))
+					.append($('<input>')
+						.attr({id:"level", placeholder:"Level"}))
+					.append($('<input>')
+						.attr({id:"nb", placeholder:"Nombre de drone"}))))
+			.append($('<input>')
+				.attr({id:"target", placeholder:"Target"}))
+			.append($('<button></button>')
+				.attr("id","subatack").append("send").click(atack))));
     get_info();
     $('#noire').mouseover(function(){$('#noire #info').show();});
     $('#noire').mouseout(function(){$('#noire #info').hide();});
