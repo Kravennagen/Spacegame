@@ -26,7 +26,7 @@ function deconnect() {
 	password: "4msRPSVZ",
 	'Content-Type': "application/json",
 	data: {},
-	error:function() {alert("Deconnection Impossible");},
+	error:function() {},
 	success:function() {log_screen();}});
 }
 
@@ -38,7 +38,7 @@ function get_info() {
 	username: "diagne_s@etna-alternance.net",
 	password: "4msRPSVZ",
 	'Content-Type': "application/json",
-	error:function(data) {alert("Recuperation impossible");},
+	error:function(data) {},
 	success:function(data) {
 	    $('#argent #level').empty();
 	    $('#produarg').empty();
@@ -56,7 +56,7 @@ function get_info() {
 	username: "diagne_s@etna-alternance.net",
 	password: "4msRPSVZ",
 	'Content-Type': "application/json",
-	error:function(data) {alert("Recuperation impossible");},
+	error:function(data) {},
 	success:function(data) {
 	    $('#cristal #level').empty();
 	    $('#producrist').empty();
@@ -74,7 +74,7 @@ function get_info() {
 	username: "diagne_s@etna-alternance.net",
 	password: "4msRPSVZ",
 	'Content-Type': "application/json",
-	error:function(data) {alert("Recuperation impossible");},
+	error:function(data) {},
 	success:function(data) {
 	    $('#droide #level').empty();
 	    $('#usine #droidelevel').empty();
@@ -92,7 +92,7 @@ function get_info() {
 	username: "diagne_s@etna-alternance.net",
 	password: "4msRPSVZ",
 	'Content-Type': "application/json",
-	error:function(data) {alert("Recuperation impossible");},
+	error:function(data) {},
 	success:function(data) {
 	    troop = data.troops;
 	    $('#droide #nombre').empty();
@@ -114,7 +114,7 @@ function create_android() {
 	data:{"level": level},
 	'Content-Type': "application/json",
 	error:function(data) {},
-	success:function(data) {alert("Vous avez creer un nouveau droide level " + level); get_info();}});
+	success:function(data) { get_info();}});
 }
 
 function update_crystal() {
@@ -125,8 +125,8 @@ function update_crystal() {
 	username: "diagne_s@etna-alternance.net",
 	password: "4msRPSVZ",
 	'Content-Type': "application/json",
-	error:function(data) {alert("Une amelioration est en cours ou bien il vous manque des composant");},
-	success:function(data) {alert("Votre Mine de crysal a  monte d'un niveau"); get_info();}});
+	error:function(data) {},
+	success:function(data) {get_info();}});
 }
 
 function update_argent() {
@@ -137,8 +137,8 @@ function update_argent() {
 	username: "diagne_s@etna-alternance.net",
 	password: "4msRPSVZ",
 	'Content-Type': "application/json",
-	error:function(data) {alert("Une amelioration est en cours ou bien il vous manque des composant");},
-	success:function(data) {alert("Votre Mine d'argent a  monte d'un niveau"); get_info();}});
+	error:function(data) {},
+	success:function(data) {get_info();}});
 }
 
 function update_factory() {
@@ -149,8 +149,8 @@ function update_factory() {
 	username: "diagne_s@etna-alternance.net",
 	password: "4msRPSVZ",
 	'Content-Type': "application/json",
-	error:function(data) {alert("Une amelioration est en cours ou bien il vous manque des composant");},
-	success:function(data) {alert("Votre Usine a  monte d'un niveau"); get_info();}});
+	error:function(data) {},
+	success:function(data) {get_info();}});
 }
 
 function log_screen() {
@@ -208,17 +208,40 @@ function del_drone() {
     $(this).parent().remove();
 }
 
+function dro_at() {
+    var dro = new array();
+    var input = $('#allform').find("input");
+    for (i = 0; input[i]; i = i + 2) {
+}
+
 function atack() {
+    var target = $('#target').val();
+	    $.ajax({
+		url: 'http://163.5.245.219:3000/api/1/droids/atack/:' + target,
+		type: 'PUT',
+		xhrFields: {withCredentials: true},
+		username: "diagne_s@etna-alternance.net",
+		password: "4msRPSVZ",
+		data: {$($('#allform').find("input")[0]).val(), $($('#allform').find("input")[1]).val()}
+		'Content-Type': "application/json",
+
+		error:function(data) {alert("L'attaque a echouer l'ID n'existe pas ou bien vous n'avez pas assez de drone");},
+		success:function(data) {alert("Votre attaque est lancée"); get_info();}});   
+	} 
+    }
+}
+
+function who_atack() {
     var id = target;
     $.ajax({
-	url: 'http://163.5.245.219:3000/api/1/droids/atack/:' + target,
-	type: 'PUT',
+	url: 'http://163.5.245.219:3000/api/1/droids/atacks',
+	type: 'GET',
 	xhrFields: {withCredentials: true},
 	username: "diagne_s@etna-alternance.net",
 	password: "4msRPSVZ",
 	'Content-Type': "application/json",
-	error:function(data) {alert("L'attaque a echouer l'ID n'existe pas ou bien vous n'avez pas assez de drone");},
-	success:function(data) {alert("Votre attaque est lancée"); get_info();}});    
+	error:function(data) {},
+	success:function(data) {});    
 }
 
 function create_co(){
@@ -348,7 +371,9 @@ function create_co(){
 			.append($('<input>')
 				.attr({id:"target", placeholder:"Target"}))
 			.append($('<button></button>')
-				.attr("id","subatack").append("send").click(atack))));
+				.attr("id","subatack").append("send").click(atack))
+			.append($('<button></button>')
+				.attr("id","subatack").append("viewattack").click(atack))));
     get_info();
     $('#noire').mouseover(function(){$('#noire #info').show();});
     $('#noire').mouseout(function(){$('#noire #info').hide();});
